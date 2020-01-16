@@ -2,11 +2,13 @@ from enum import Enum
 
 '''represents a flat/natural/sharp'''
 class Accidental(Enum) :
+	TripleFlat = -3
 	DoubleFlat = -2
 	Flat = -1
 	Natural = 0
 	Sharp = 1
 	DoubleSharp = 2
+	TripleSharp = 3
 	def toSymbol(self):
 		if self.value == -2:
 			return 'bb'
@@ -56,6 +58,8 @@ class Note :
 		return '{0}{1}'.format(self.noteName.name,self.accidental.toSymbol())
 	def __repr__(self):
 		return 'Note object {0} {1}'.format(self.noteName,self.accidental)
+	def __eq__(self,other):
+		self.accidental == other.accidental and self.noteName == other.noteName
 		
 '''return a musical note (sharp biased) from an absolute pitch value'''
 def makeNoteNoFail(num):
@@ -64,3 +68,5 @@ def makeNoteNoFail(num):
 	else:
 		return Note(NoteName(num - 1),Accidental.Sharp)
 
+def parse(name, acc = 0):
+	return Note(NoteName[name],Accidental(num))

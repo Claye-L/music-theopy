@@ -16,11 +16,21 @@ def getNoteAtInterval(note, interval):
 	basenotepitch = mapNameToPitch(notename)
 	# print(basenotepitch)
 	return Note(notename, Accidental(circularWrap(newnotepitch - basenotepitch)))
-	
+'''return the note shifted by the interval'''
+def addInterval(note,interval):
+	return getNoteAtInterval(note,interval)
+'''apply a list of intervals to a note'''
+def applyListIntervals(note,intervals):
+	return map(lambda interval: addInterval(note,interval) ,intervals)
+
 '''return a list of notes that comprise the major chord based on note'''
 def majorChord(note):
-	return [note,getNoteAtInterval(note, Interval.MajorThird), getNoteAtInterval(note, Interval.Fifth)]
-	
+	return applyListIntervals(note, [Interval.Unison, Interval.MajorThird, Interval.Fifth])
+def minorChord(note):
+	return applyListIntervals(note, [Interval.Unison, Interval.MinorThird, Interval.Fifth])
+def majorScale(note):
+	return applyListIntervals(note, [Interval.Unison, Interval.Second, Interval.MajorThird, Interval.Fourth, Interval.Fifth,])
+
 aflat = Note(NoteName.A, Accidental.Flat)
 fsharp = Note(NoteName.F, Accidental.Sharp)
 enatural = Note(NoteName.E, Accidental.Natural)
