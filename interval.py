@@ -17,29 +17,27 @@ class Interval(Enum):
 	MinorSeventh = 10
 	MajorSeventh = 11
 
+	'''returns how to shift note name for interval'''
 	def noteOffsetForInterval(self):
 		value = self.value
 		if value == 0:
 			return 0
 		elif value in [1,2]:
-			return 2
+			return 1
 		elif value in [3,4]:
-			return 4
+			return 2
 		elif value in [5,6]:
-			return 5
+			return 3
 		elif value == 7:
-			return 7
+			return 4
 		elif value in [8,9]:
-			return 9
+			return 5
 		else:
-			return 11
-	'''returns how to shift the name of a note for an interval according to major scale rules'''
-	def intervalShift(self):
-		interval = self
-		if interval.value in [0,2,4,5,7,9,11]:
-			return (self.noteOffsetForInterval(),0)
-		elif interval.value in [1,3,6,8,10]:
-			return (self.noteOffsetForInterval(),-1)
-			
-			
-print(Interval.MinorThird.intervalShift())
+			return 6
+	# '''returns how to shift the name of a note for an interval according to major scale rules'''
+	# def intervalShift(self):
+		# interval = self
+		# if interval.value in [0,2,4,5,7,9,11]:
+			# return (self.noteOffsetForInterval(),0)
+		# elif interval.value in [1,3,6,8,10]:
+			# return (self.noteOffsetForInterval(),-1)
