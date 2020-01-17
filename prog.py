@@ -8,7 +8,6 @@ def notesInCommon(c1,c2):
 	for n1 in c1:
 		for n2 in c2:
 			if n1 == n2:
-				print(n1)
 				result.append(n1)
 	return result
 
@@ -22,9 +21,10 @@ def allNotes():
 chordSymbols = ['B min','F# maj','Bb min', 'F maj', 'A min', 'E maj']
 chords = list(map(lambda c: chord.parseChord(c),chordSymbols))
 uniquenotes = set([item for sublist in chords for item in sublist])
-allscales = map(lambda x: chord.majorScale(x), allNotes())
-intersects = list(sorted(map(lambda scale: (scale,notesInCommon(scale,uniquenotes)),allscales), key = lambda a : len(a[1])))
+allscales = [chord.majorScale(x) for x in allNotes()]
+intersects = [(scale, notesInCommon(scale,uniquenotes)) for scale in allscales]
+srtInte = sorted(intersects, key= lambda x: len(x[1]), reverse= True)[:5]
 
 
-print(list(map(lambda c: chord.prettyPrintChord(c),chords)))
-print(intersects)
+# print(list(map(lambda c: chord.prettyPrintChord(c),chords)))
+print([chord.prettyPrintChord(s)  for (s,c) in srtInte])

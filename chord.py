@@ -4,8 +4,10 @@ from note import *
 def circularWrap(num):
 	if num >= 6:
 		return num - 12
+	elif num <= -6:
+		return num + 12
 	else:
-		return num % 12
+		return num
 	
 '''return the note shifted by the interval'''
 def getNoteAtInterval(note, interval):
