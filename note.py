@@ -21,7 +21,6 @@ class Accidental(Enum) :
 		elif self.value == 2:
 			return '##'
 
-
 class NotePitch(Enum) :
 	C = 0
 	D = 2
@@ -30,14 +29,6 @@ class NotePitch(Enum) :
 	G = 7
 	A = 9
 	B = 11
-# class NotePitch(Enum) :
-	# C = 1
-	# D = 3
-	# E = 5
-	# F = 6
-	# G = 8
-	# A = 10
-	# B = 12
 '''represents a note name from C to B'''
 class NoteName(Enum) :
 	C = 0
@@ -59,14 +50,28 @@ class Note :
 	def __repr__(self):
 		return 'Note object {0} {1}'.format(self.noteName,self.accidental)
 	def __eq__(self,other):
-		self.accidental == other.accidental and self.noteName == other.noteName
+		return self.accidental.value == other.accidental.value and self.noteName.value == other.noteName.value
+	def __key(self):
+		return (self.noteName, self.accidental)
+	def __hash__(self):
+		return hash(self.__key())
 		
+
 '''return a musical note (sharp biased) from an absolute pitch value'''
 def makeNoteNoFail(num):
 	if num in map(lambda x: x.value,list(NoteName)):
 		return Note(NoteName(num),Accidental.Natural)
 	else:
 		return Note(NoteName(num - 1),Accidental.Sharp)
-
+"""takes a note and a number for accidental"""
 def parse(name, acc = 0):
 	return Note(NoteName[name],Accidental(acc))
+"""reads a common notation note symbol"""
+def parseNote(symbol):
+	name = symbol[0]
+	acc = 0
+	if len(symbol) > 1:
+		a = symbol[1:]
+		acc += a.count('b') * -1
+		acc += a.count('#') * 1
+	return parse(name,acc)
