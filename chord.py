@@ -29,21 +29,7 @@ def majorChord(note):
 def minorChord(note):
 	return applyListIntervals(note, [Interval.Unison, Interval.MinorThird, Interval.Fifth])
 def majorScale(note):
-	return applyListIntervals(note, [Interval.Unison, Interval.Second, Interval.MajorThird, Interval.Fourth, Interval.Fifth,])
+	return applyListIntervals(note, [Interval.Unison, Interval.Second, Interval.MajorThird, Interval.Fourth, Interval.Fifth, Interval.MajorSixth, Interval.MajorSeventh])
+def minorScale(note):
+	return applyListIntervals(note, [Interval.Unison, Interval.Second, Interval.MinorThird, Interval.Fourth, Interval.Fifth, Interval.MinorSixth, Interval.MinorSeventh])
 
-aflat = Note(NoteName.A, Accidental.Flat)
-fsharp = Note(NoteName.F, Accidental.Sharp)
-enatural = Note(NoteName.E, Accidental.Natural)
-gnatural = Note(NoteName.G,Accidental.Natural)
-
-# print(majorChord(aflat))
-print(getNoteAtInterval(enatural,Interval.Fifth))
-print(getNoteAtInterval(enatural,Interval.MajorThird))
-#print(majorChord(enatural))
-
-print(aflat)
-print(getNoteAtInterval(aflat,Interval.Fifth))
-print(getNoteAtInterval(aflat,Interval.MajorThird))
-print(getNoteAtInterval(aflat,Interval.MinorSixth))
-print(getNoteAtInterval(aflat,Interval.MajorSixth))
-print(getNoteAtInterval(aflat,Interval.MinorThird))

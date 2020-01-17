@@ -69,4 +69,4 @@ def makeNoteNoFail(num):
 		return Note(NoteName(num - 1),Accidental.Sharp)
 
 def parse(name, acc = 0):
-	return Note(NoteName[name],Accidental(num))
+	return Note(NoteName[name],Accidental(acc))
