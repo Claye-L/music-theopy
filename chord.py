@@ -4,6 +4,8 @@ from note import *
 def circularWrap(num):
 	if num >= 6:
 		return num - 12
+	elif num <= -6:
+		return num + 12
 	else:
 		return num
 	
@@ -21,7 +23,7 @@ def addInterval(note,interval):
 	return getNoteAtInterval(note,interval)
 '''apply a list of intervals to a note'''
 def applyListIntervals(note,intervals):
-	return map(lambda interval: addInterval(note,interval) ,intervals)
+	return list(map(lambda interval: addInterval(note,interval) ,intervals))
 
 '''return a list of notes that comprise the major chord based on note'''
 def majorChord(note):
@@ -33,3 +35,14 @@ def majorScale(note):
 def minorScale(note):
 	return applyListIntervals(note, [Interval.Unison, Interval.Second, Interval.MinorThird, Interval.Fourth, Interval.Fifth, Interval.MinorSixth, Interval.MinorSeventh])
 
+def prettyPrintChord(c):
+	return list(map(lambda x: x.__str__(),c))
+
+def parseChord(symbol):
+	spaceindex = symbol.index(' ')
+	note = parseNote(symbol[:spaceindex])
+	color = symbol[spaceindex + 1::]
+	if color == 'maj':
+		return majorChord(note)
+	elif color == 'min':
+		return minorChord(note)

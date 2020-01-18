@@ -1,12 +1,32 @@
-import chord as chord
+
 import note as note
+import chord as chord
 
-bmin = chord.minorChord(note.parse('B'))
-fsmaj = chord.majorChord(note.parse('F',1))
-bbmin = chord.minorChord(note.parse('B',-1))
-fmaj = chord.majorChord(note.parse('F'))
-amin = chord.minorChord(note.parse('A'))
-emaj = chord.majorChord(note.parse('E'))
-chords = [bmin,fsmaj,bbmin,fmaj,amin,emaj]
 
+"""returns the notes in common between 2 chords/scales"""
+def notesInCommon(c1,c2):
+	result = [] 
+	for n1 in c1:
+		for n2 in c2:
+			if n1 == n2:
+				result.append(n1)
+	return result
+
+def allNotes():
+	result = []
+	for n in list(note.NoteName):
+		for i in range(0,2):
+			result.append(note.Note(n,note.Accidental(i)))
+	return result
+
+chordSymbols = ['B min','F# maj','Bb min', 'F maj', 'A min', 'E maj']
+chords = list(map(lambda c: chord.parseChord(c),chordSymbols))
+uniquenotes = set([item for sublist in chords for item in sublist])
+allscales = [chord.majorScale(x) for x in allNotes()]
+intersects = [(scale, notesInCommon(scale,uniquenotes)) for scale in allscales]
+srtInte = sorted(intersects, key= lambda x: len(x[1]), reverse= True)[:5]
+
+
+# print(list(map(lambda c: chord.prettyPrintChord(c),chords)))
+print([chord.prettyPrintChord(s)  for (s,c) in srtInte])
 
